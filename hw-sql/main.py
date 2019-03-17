@@ -1,10 +1,14 @@
+import menu
+import table_manage
+import access_table
+import MySQLdb
 
+db = MySQLdb.connect("localhost","boss","123456","mangcambien2019")
+cursor = db.cursor()
 
+sql = """SELECT * from datasensor2"""
 
-
-print("******************WELCOME TO ENTERPRISE******************")
-print("\n1. Insert new employees.")
-print("\n2. Print employees table.")
-print("\n3. Find a specific employee.")
-print("\n4. Exit")
+cursor.execute(sql)
+results = cursor.description
+print(results)
 
