@@ -20,8 +20,11 @@ while choice_1:
 	elif choice_1 == "5":
 		access_table.show_data()
 	elif choice_1 == "6":
-		name_tb == input("ENTER TABLE'S NAME: ")
+		name_tb = input("ENTER TABLE'S NAME: ")
 		access_table.show_max_min(name_tb)
+	elif choice_1 == "7":
+		name_tb = input("ENTER TABLE'S NAME: ")
+		access_table.insert_value(name_tb)
 
 		
 
