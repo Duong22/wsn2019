@@ -39,6 +39,18 @@ def insert_value(name_tb):
 	except:
 		print("ERROR!")
 
+def delete_data(name_tb):
+	db = MySQLdb.connect("localhost","boss","123456","mangcambien2019")
+	cursor = db.cursor()
+	id_del = input("ENTER ID NUMBER YOU WANT TO DELETE: ")
+	sql = """DELETE FROM %s WHERE id = %s""" %(name_tb,id_del)
+	try:
+		cursor.execute(sql)
+		db.commit()
+		print("SUCCESSFUL!")
+	except:
+		print("ERROR!")
+
 def print_result(results,cursor):
 	widths = []
 	columns = []
