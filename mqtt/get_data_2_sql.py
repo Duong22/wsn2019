@@ -14,7 +14,7 @@ def sensor(jsonData):
     try:
         cursor.execute(sql)
         db.commit()
-        print("SUCCESSFUL!")
+        print("SUCCESSFUL!\n")
     except:
         print("ERROR!")
     db.close()

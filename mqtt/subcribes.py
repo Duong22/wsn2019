@@ -19,14 +19,14 @@ def on_connect(client, userdata, rc):
 def on_message(client, userdata, msg):
         print("MQTT Data Received...")
         print("MQTT Toic: " + msg.topic)
-        print("Data: " + str(msg.payload))
+        print("Data: " + str(msg.payload.decode("utf-8")))
         sensor(msg.payload)
 
 client = mqtt.Client()
 client.username_pw_set(username="client1",password="123456")
 client.on_connect = on_connect
-client.on_message = on_message
+client.on_message = on_message          #attach function to callback
 
-client.connect(MQTT_Broker, MQTT_Port, Keep_Alive_Interval)
+client.connect(MQTT_Broker, MQTT_Port, Keep_Alive_Interval)     #connect to brocket
 client.subscribe(MQTT_Topic,0)
 client.loop_forever()
