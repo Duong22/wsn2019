@@ -1,0 +1,71 @@
+html, body {
+    height: 100%;
+    margin: auto;
+    padding: auto;
+    background: url(img/background.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+  
+.topmenu {
+	width: 100%;
+	height: 56px;
+	float: left;
+	background-color: #333d3f;
+}
+.topmenu ul {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+}
+.topmenu ul li {
+    float: left;
+}
+.topmenu ul li a {
+	display: block;
+    text-align: center;
+    padding: 14px 16px;
+	color: #FFFFFF;
+    text-decoration: none;
+    font-size: 25px;
+}
+.topmenu ul li a:hover {
+	background-color: #111;
+}
+.active {
+    background-color: #4caf50;
+}
+
+#wrapper{
+    width: 100%;
+    margin-top: auto;
+}
+#wrapper .half {
+    width: 49.8%;
+    height: 100%;
+    float: left;
+}
+#wrapper .half #profile {
+    border-radius: 50%;
+    width: 30%;
+    height: 30%;
+    margin-top: 25%;
+    margin-left: 50%;
+}
+#wrapper .half #subtitle {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    margin-left: 100px;
+    text-align: center;
+}
+#wrapper .half #info {
+    width: auto;
+    height: auto;
+    margin-top: 25%;
+    margin-left: 0;
+    font-size: 25px;
+}
+th {text-align: left;}
