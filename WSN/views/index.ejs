@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>ISmart</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel = 'stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css' integrity='sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf' crossorigin='anonymous'>
+    <!-- Font Awesome JS -->
+    <script>
+        window.onload = function () {
+        
+        var dps = [];
+        var dps1 = [];
+        var chart = new CanvasJS.Chart("chartContainer", {
+            backgroundColor: "#ECF0F5",
+            exportEnabled: true,
+            title :{
+                text: "Temperature and Humidity Chart",
+                fontSize: "18"
+            },
+            axisY: {
+                includeZero: false
+            },
+            data: [{
+                type: "spline",
+                xValueType: "dateTime",
+                markerSize: 0,
+                name: "Temp",
+                color: "#DC143C",
+                dataPoints: dps 
+            },
+            {
+                type: "spline",
+                xValueType: "dateTime",
+                markerSize: 0,
+                name: "Hum",
+                color: "#6495ED",
+                dataPoints: dps1 
+            }
+        ]
+        });
+        
+        var xVal = new Date();
+        var yVal = 10;
+        var y1Val = 10;
+        var dataLength = 50; // number of dataPoints visible at any point
+        setInterval(function(){ 
+            $.getJSON( "/api/sensor2", function( a ) {
+                //time.setTime(time.getTime()+ 1000);
+                xVal = new Date();
+                yVal = a.Temp;
+                y1Val = a.Hum;
+                dps.push({
+                    x: xVal,
+                    y: yVal
+                });
+                dps1.push({
+                    x: xVal,
+                    y: y1Val
+                });
+            if (dps.length > dataLength) {
+             dps.shift();
+            }
+            if (dps1.length > dataLength) {
+             dps1.shift();
+            }
+        // if (dps2.length > dataLength) {
+        //     dps2.shift();
+        // }
+        // if (dps3.length > dataLength) {
+        //     dps3.shift();
+        // }   
+            chart.render();
+            });
+    }, 1000);
+        }
+        </script>
+</head>
+
+<body>
+
+        <!-- Sidebar  -->
+    <nav class="navbar">
+        <ul>
+            <li>Dinh Thai Duong</li>
+            <li>B15DCDT048</li>
+        </ul>
+    </nav>
+    <!-- Page Content  -->
+    <div id="content">   
+        <div class="row">
+            <div class="box col" id="temp1" style='background: #f39c12;'>
+                <p style="font-size:50px; color:white; float:left;">
+                    <span class="fas fa-thermometer-three-quarters"></span>&nbsp;
+                    <span id="value"><span id="sensor-temp"></span><fon style="font-size:30px">&#x2103</fon></span>
+                </p>
+            </div>
+        <div class="box col" id="hum1" style='background: blue;'>
+                <p style="font-size:50px; color:white; float:left;">
+                    <span class="fas fa-tint"></span>&nbsp;
+                    <span id="value"></span><span id="sensor-hum"></span><fon style="font-size:30px">%</fon></span>
+                </p>
+            </div>
+            <div class="box col" id="dust1" style='background: brown;'>
+                <p style="font-size:50px; color:white; float:left;">
+                    <span class="fas fa-wind"></span>&nbsp;
+                    <span id="value"><span id="sensor-dust"></span><fon style="font-size:30px">%</fon></span>
+                </p>
+            </div>
+            <div class="box col" id="light1" style='background: #DC143C;'>
+                <p style="font-size:50px; color:white; float:left;">
+                    <span class="fas fa-sun"></span>&nbsp;
+                    <span id="value"><span id="sensor-light"></span></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="chart-led">
+            <div id="chartContainer" class="chart">
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            </div> 
+            <div class="led">​
+                <h2>Led Controller</h2>
+                <h5>Led 1</h5>
+                <label class="switch">
+                    <input id="check-led1" type="checkbox" checked>
+                    <span class="slider"></span>
+                </label></br>
+                <input id="control-led1" type="range" min="1" max="100" value="50" class="slider1">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        NocopyRight
+    </footer>
+   
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script>
+        setInterval(function(){        
+            $.getJSON( "/api/sensor2", function(a) {
+                $('#sensor-light').text(a.Light);
+                $('#sensor-temp').text(a.Temp);
+                $('#sensor-hum').text(a.Hum);
+                $('#sensor-dust').text(a.Dust);
+                var temp = document.getElementById('temp1');
+                var hum = document.getElementById('hum1');
+                var light = document.getElementById('light1');
+                var dust = document.getElementById('dust1');
+                if(a.Temp <= 20){
+                    temp.style.background = "#2E9AFE";
+                }
+                if(a.Temp > 20 && a.Temp <= 30){
+                    temp.style.background = "#DC143C";
+                }
+                if(a.Temp > 30){
+                    temp.style.background = "#FF4000";
+                }
+                if(a.Hum <= 40){
+                    hum.style.background = "#2E9AFE";
+                }
+                if(a.Hum > 40 && a.Hum <= 80){
+                    hum.style.background = "#6495ED";
+                }
+                if(a.Hum > 80){
+                    hum.style.background = "#084B8A";
+                }
+                if(a.Light <= 200){
+                    light.style.background = "#FE9A2E";
+                }
+                if(a.Light > 200 && aLight <= 600){
+                    light.style.background = "#DF7401";
+                }
+                if(a.Light > 600){
+                    light.style.background = "#8A4B08";
+                }
+                if(a.Dust <= 20){
+                    dust.style.background = "#696969";
+                }
+                if(a.Dust > 20 && a.Dust <= 40){
+                    dust.style.background = "#2E2E2E";
+                }
+                if(a.Dust > 40){
+                    dust.style.background = "#000000";
+                }
+            });
+        }, 500);
+
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+        $("#check-led1").click(function() {
+            var token = "";
+            var led1 = $(this).prop('checked');
+            if (led1) led1 = 1;
+            else led1 = 0;
+            $.post( "/api/led1", { signal: led1, token: token })
+            .done(function( data ) {
+
+            });
+        });
+        $("#control-led1").on('change', function() {
+            var token = "";
+            var led1 = $(this).val();
+            $.post( "/api/controlled1", { pwm: led1 , token: token})
+                .done(function( data ) {
+    
+                });
+            console.log(led1)
+        });
+    </script>
+ 
+
+    
+</body>
+
+</html>
